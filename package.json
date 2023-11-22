@@ -20,10 +20,12 @@
   },
   "homepage": "https://github.com/wysi-inc/bot#readme",
   "dependencies": {
+    "country-code-emoji": "^2.3.0",
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
     "mysql2": "^3.6.5",
     "nodemon": "^3.0.1",
-    "osu-api-extended": "^2.7.67"
+    "osu-api-extended": "^2.7.67",
+    "quickchart-js": "^3.1.3"
   }
 }

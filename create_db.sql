@@ -4,6 +4,6 @@ use wysi;
 
 CREATE TABLE
     discord_users (
-        discord_username varchar(255) PRIMARY KEY,
-        osu_username varchar(15)
+        discord_id int(32) PRIMARY KEY,
+        osu_id int(32)
 )
