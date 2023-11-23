@@ -16,13 +16,8 @@ export function secondsToTime(seconds) {
 }
 
 export async function getDiscordLinked(discord_id) {
-  let sql = `SELECT * FROM discord_users WHERE discord_id = ?`;
-  let vals = [discord_id];
-  const [result] = await srv.mysqldb.query(sql, vals);
-  if (result.length < 1) {
-    return { found: false, osu_id: null };
-  }
-  return { found: true, osu_id: result[0].osu_id };
+  const [result] = await srv.mysqldb.query(`SELECT * FROM discord_users WHERE discord_id = ${discord_id}`);
+  return { found: result.length > 0, osu_id: result[0]?.osu_id || null}
 }
 
 export function getUserEmbed(user) {
@@ -119,4 +114,4 @@ export function getUserEmbed(user) {
   };
 }
 
-export function getScoreEmned(score) {}
+export function getScoreEmbed(score) {}
