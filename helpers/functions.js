@@ -1,3 +1,4 @@
+import srv from "../Server.js";
 import { countryCodeEmoji } from "country-code-emoji";
 import QuickChart from "quickchart-js";
 
@@ -12,6 +13,16 @@ export function secondsToTime(seconds) {
   let mDisplay = m > 0 ? m + "m " : "";
   let sDisplay = s > 0 ? s + "s" : "0s";
   return dDisplay + hDisplay + mDisplay + sDisplay;
+}
+
+export async function getDiscordLinked(discord_id) {
+  let sql = `SELECT * FROM discord_users WHERE discord_id = ?`;
+  let vals = [discord_id];
+  const [result] = await srv.mysqldb.query(sql, vals);
+  if (result.length < 1) {
+    return { found: false, osu_id: null };
+  }
+  return { found: true, osu_id: result[0].osu_id };
 }
 
 export function getUserEmbed(user) {
@@ -69,9 +80,9 @@ export function getUserEmbed(user) {
       },
       {
         name: "",
-        value: `${countryCodeEmoji(user.country_code)}⠀**Country Rank:** #${
-          user.statistics.country_rank.toLocaleString()
-        }`,
+        value: `${countryCodeEmoji(
+          user.country_code
+        )}⠀**Country Rank:** #${user.statistics.country_rank.toLocaleString()}`,
       },
       {
         name: "",
@@ -95,11 +106,11 @@ export function getUserEmbed(user) {
       },
       {
         name: "",
-        value: `**SS**: \`${
-          (user.statistics.grade_counts.ss + user.statistics.grade_counts.ssh).toLocaleString()
-        }\`⠀⠀**S**: \`${
-          (user.statistics.grade_counts.s + user.statistics.grade_counts.sh).toLocaleString()
-        }\`⠀⠀**A**: \`${user.statistics.grade_counts.a.toLocaleString()}\``,
+        value: `**SS**: \`${(
+          user.statistics.grade_counts.ss + user.statistics.grade_counts.ssh
+        ).toLocaleString()}\`⠀⠀**S**: \`${(
+          user.statistics.grade_counts.s + user.statistics.grade_counts.sh
+        ).toLocaleString()}\`⠀⠀**A**: \`${user.statistics.grade_counts.a.toLocaleString()}\``,
       },
     ],
     footer: {
@@ -107,3 +118,5 @@ export function getUserEmbed(user) {
     },
   };
 }
+
+export function getScoreEmned(score) {}

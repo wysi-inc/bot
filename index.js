@@ -45,7 +45,7 @@ try {
 
     // The put method is used to fully refresh all commands in the guild with the current set
     const data = await rest.put(
-        Routes.applicationCommands(client_id, "1164830158373523476"),
+        Routes.applicationGuildCommands(client_id, "1164830158373523476"),
         {
             body: commands,
         }
